@@ -1,0 +1,68 @@
+.card { 
+    width: 80%; 
+	min-height: 500px !important;
+    margin: auto;
+    transition: transform 0.3s ease,width 0.3s ease, height 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-img-top { 
+    width: 95% !important;
+    height: 200px; 
+    object-fit: cover;
+    margin: 7px auto 0 !important;
+    display: block;
+    transition: transform 0.3s ease;
+}
+.card-text{
+    color: black !important;
+}
+
+.card-title { 
+    text-align: center;
+    font-size: 1em; 
+    font-weight: bold;
+    color: black !important;
+}
+
+.card-text,.card-body button { 
+   
+    transition: opacity 0.3s ease;
+    text-align: center;
+    max-height: 6em;
+    overflow-y: auto; 
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.card:hover {
+    transform: scale(1.05,1); 
+    width: 90%;  
+   
+}
+
+.comprar { 
+    font-weight: bold !important;
+    background-color: #ef890d !important; 
+    color: #f9f9f9 !important;           
+    border: none;            
+    border-radius: 5px;      
+    padding: 10px;          
+    font-size: 16px;         
+    transition: transform 0.3s, box-shadow 0.3s; 
+}
+
+.comprar:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px saddlebrown;
+} 
+
+.mb-4{ 
+    color: white !important;
+}
+
+.bt_comprar{
+    color: white !important;
+    text-decoration: none !important;
+}

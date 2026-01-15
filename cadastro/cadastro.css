@@ -1,0 +1,30 @@
+form {
+    width: 65%;
+}
+.mt-5{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mb-4{
+    color: rgb(247, 245, 245);
+    font-weight: bolder;
+}
+
+label{
+    color: rgb(247, 245, 245);
+}
+
+.mt-4{
+    color: white;
+    font-size: 20px !important;
+}
+
+input{
+    border-color: black !important;
+}
+
+.btn-outline-secondary{
+    border-color: black !important;
+}

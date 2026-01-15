@@ -1,0 +1,412 @@
+p{
+    color: white;
+}
+.fin_comp{
+    margin-top: 8px;
+    width: 90%;
+    margin-bottom: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.pagamento-card {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    color: #000;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.titulo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.tipo_pagamento .opcao {
+    margin-bottom: 10px;
+}
+
+.tipo_pagamento input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.tipo_pagamento label {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.info_entrega {
+    background-color: #e6ffe6;
+    color: #2e7d32;
+    border: 1px solid #2ecc71;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.confirma {
+    text-align: center;
+}
+
+.btn-finalizar {
+    background-color: #a11a2b;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-finalizar:hover {
+    background-color: #820f1e;
+}
+
+
+.titu{
+    font-size: 32px;
+    font-weight: 200;
+}
+
+.endereco{
+    width: 30%;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+    float: left;
+}
+
+.ende{
+    margin-top: -3px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.ende img{
+    width: 30px;
+    margin-bottom: -7px;
+    margin-right: 7px;
+}
+
+.tipo_cartao{
+    width: 100%;
+    text-align: center;
+}
+
+.credito{
+    display: inline-block;
+    text-align: center;
+}
+
+.debito{
+    display: inline-block;
+    text-align: center;
+    margin-left: 25px;
+}
+
+.rad{
+    display: none;
+}
+
+.num_cartao{
+    margin-top: 20px ;
+    margin-left: 10px;
+}
+
+.num_carta{
+    width: 90%;
+    padding-left: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    margin-top: 5px;
+    font-size: 22px;
+    border: 1px solid grey;
+    letter-spacing: 2px;
+}
+
+.num_carta:focus{
+    border: 1px solid black;
+    outline: 0;
+    box-shadow: rgb(138, 138, 138) 1px 2px 5px ;
+}
+
+.nome_cartao{
+    margin-top: 20px ;
+    margin-left: 10px;
+}
+
+.no_carta{
+    width: 90%;
+    text-transform: uppercase;
+    padding-left: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    margin-top: 5px;
+    font-size: 20px;
+    border: 1px solid grey;
+}
+
+.no_carta:focus{
+    text-transform: uppercase;
+    border: 1px solid black;
+    outline: 0;
+    box-shadow: rgb(138, 138, 138) 1px 2px 5px ;
+}
+
+.credi, .debi{
+    cursor: pointer;
+    display: block;
+    background-color: rgba(238, 234, 234, 0.906);
+    width: 150px;
+    height: 70px;
+    border: 1px solid rgb(156, 154, 154);
+    border-radius: 5px;
+}
+
+.cred:checked ~ .credi{
+    background-color: rgba(189, 191, 191, 0.896);
+    border: 1px solid rgb(104, 103, 103);
+}
+
+.deb:checked ~ .debi{
+    background-color: rgba(189, 191, 191, 0.896);
+    border: 1px solid rgb(104, 103, 103);
+}
+
+.num_parc{
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+.lab_parc{
+    font-size: 18px;
+}
+
+#parcela{
+    font-size: 18px;
+}
+
+.validad_cartao{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.vali_carta{
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.cvv_cartao{
+    margin-top: 20px ;
+    margin-left: 10px;
+}
+
+.c_carta{
+    width: 90px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 15px;
+    font-size: 22px;
+    border: 1px solid grey;
+    letter-spacing: 2px;
+}
+
+.c_carta:focus{
+    border: 1px solid black;
+    outline: 0;
+    box-shadow: rgb(138, 138, 138) 1px 2px 5px ;
+}   
+
+.c_cartainput::-webkit-outer-spin-button,
+.c_carta::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.cpf_cartao{
+    margin-top: 20px ;
+    margin-left: 10px;
+}
+
+.cpf_carta{
+    width: 90%;
+    padding-left: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    font-size: 22px;
+    border: 1px solid grey;
+    letter-spacing: 2px;
+}
+
+.cpf_carta:focus{
+    border: 1px solid black;
+    outline: 0;
+    box-shadow: rgb(138, 138, 138) 1px 2px 5px ;
+}   
+
+.confirma{
+    margin-top: 15px;
+    text-align: center;
+}
+
+.salva_v{
+    cursor: pointer;
+    width: 85%;
+    height: 40px;
+    border: none;
+    background-color: #992339;
+    color: white;
+    font-size: 19px;
+    padding: 10px;
+}
+
+
+.lab img{
+    width: 35px;
+}
+
+.etapas{
+    float: left;
+    width: 25%;
+}
+
+.identificacao{
+    margin-left: 30px;
+    width: 100%;
+    height: 65px;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.etap{
+    margin-top: -3px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.link{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.etap img{
+    width: 30px;
+    margin-bottom: -7px;
+    margin-right: 7px;
+}
+
+.dad_ver{
+    float: left;
+    margin-top: -5px;
+}
+
+.verificado{
+    margin-top: -30px;
+    width: 30px;
+    float: right;
+}
+
+.pagamento{
+    margin-left: 30px;
+    width: 100%;
+    height: 65px;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+}
+
+.pedido{
+    margin-left: 100px;
+    width: 29%;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+    float: right;
+    margin-right: 10px;
+}
+
+.resum{
+    margin-top: -3px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.quantidade{
+    width: 5px;
+    margin-bottom: -35px;
+}
+
+.quant{
+    font-size: 13px;
+}
+
+.imagem_prod{
+    width: 60px;
+}
+
+.imagem{
+    float: left;
+    margin-right: 15px;
+}
+
+.nome{
+    font-size: 15px;
+    margin-bottom: -7px;
+}
+
+.valor{
+    font-size: 14px;
+    display: inline-block;
+}
+
+.subtotal{
+    font-size: 15px;
+    float: right;
+}
+
+.subt, .entr, .tota{
+    display: inline-block;
+    margin-bottom: -18px;
+}
+
+.tota{
+    font-weight: bold;
+}
+
+.total{
+    font-weight: bold;
+}
+
+.subtot, .gratis, .total{
+    float: right;
+    margin-bottom: -18px;
+}
+
+.voltar{
+    color: black;
+}
+
+.vol{
+    text-align: center;
+    margin-top: 20px;
+}

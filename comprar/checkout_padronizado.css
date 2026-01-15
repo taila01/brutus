@@ -1,0 +1,345 @@
+body {
+    color: rgb(211, 108, 35);
+    background-color: black !important;
+}
+
+p {
+    color: rgb(211, 108, 35);
+}
+
+.fin_comp {
+    margin-top: 20px;
+    width: 90%;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 50px;
+    overflow: hidden; 
+}
+
+.titu {
+    font-size: 32px;
+    font-weight: 200;
+    color: rgb(211, 108, 35);
+    margin-bottom: 30px;
+}
+
+.endereco, .identificacao, .pagamento-card {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(239, 137, 13, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    color: rgb(211, 108, 35);
+    width: 30%;
+    float: left;
+}
+
+.pagamento-card {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.ende, .dado, .etap, .resum, .titulo {
+    margin-top: -3px;
+    font-weight: bold;
+    font-size: 22px;
+    color: rgb(211, 108, 35);
+}
+
+.subtitulo {
+    font-size: 16px;
+    color: rgb(211, 108, 35);
+}
+
+.ende img, .dado img, .etap img {
+    width: 30px;
+    margin-bottom: -7px;
+    margin-right: 7px;
+}
+
+.insere_dados, .num_carta, .no_carta, .c_carta, .cpf_carta {
+    border: 1px solid #444;
+    width: 95%;
+    height: 40px;
+    font-size: 17px;
+    margin-top: 7px;
+    background-color: #2a2a2a;
+    color: #fff;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+
+.insere_dados:focus, .num_carta:focus, .no_carta:focus, .c_carta:focus, .cpf_carta:focus {
+    outline: 0;
+    border-color: #ef890d;
+    box-shadow: 0 0 5px rgba(239, 137, 13, 0.5);
+}
+
+.dados_label, .end_label, .lab_parc, .vali_carta {
+    font-size: 17px;
+    color: rgb(211, 108, 35);
+}
+
+.salva_dados, .salva_v, .btn-finalizar, .btn-novo-endereco {
+    cursor: pointer;
+    width: 85%;
+    height: 40px;
+    border: none;
+    background-color: #ef890d;
+    color: white;
+    font-size: 17px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin: 10px auto;
+    display: block;
+}
+
+.salva_dados:hover, .salva_v:hover, .btn-finalizar:hover, .btn-novo-endereco:hover {
+    background-color: #d67b0b;
+}
+
+.btn-secundario {
+    background-color: #333;
+    color: white;
+}
+
+.btn-secundario:hover {
+    background-color: #444;
+}
+
+.etapas {
+    float: left;
+    width: 25%;
+    margin-left: 20px;
+    clear: none;
+}
+
+.etapas .identificacao,
+.etapas .pagamento,
+.etapas .entrega {
+    width: 100%;
+    float: none;
+    margin-bottom: 15px;
+    position: relative;
+    padding: 15px;
+    border-left: 4px solid #ef890d;
+}
+
+.etapa-ativa {
+    border-left: 4px solid #ef890d;
+    background-color: #1a1a1a;
+}
+
+.etapa-concluida {
+    border-left: 4px solid #4caf50;
+    background-color: #1a1a1a;
+}
+
+.etapa-pendente {
+    border-left: 4px solid #555;
+    background-color: #1a1a1a;
+    opacity: 0.8;
+}
+
+.link {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(211, 108, 35);
+    display: block;
+}
+
+.link:hover {
+    color: #ef890d;
+}
+
+.voltar {
+    color: rgb(211, 108, 35);
+    text-decoration: none;
+}
+
+.voltar:hover {
+    color: #ef890d;
+    text-decoration: underline;
+}
+
+.pedido {
+    margin-left: 20px;
+    width: 29%;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(239, 137, 13, 0.2);
+    padding: 20px;
+    float: right;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    color: rgb(211, 108, 35);
+}
+
+.produto {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.quantidade {
+    width: 5px;
+    margin-bottom: -35px;
+}
+
+.quant {
+    font-size: 13px;
+    color: rgb(211, 108, 35);
+}
+
+.imagem_prod {
+    width: 60px;
+    border-radius: 5px;
+}
+
+.imagem {
+    float: left;
+    margin-right: 15px;
+}
+
+.nome {
+    font-size: 15px;
+    margin-bottom: -7px;
+    color: rgb(211, 108, 35);
+}
+
+.valor {
+    font-size: 14px;
+    display: inline-block;
+    color: rgb(211, 108, 35);
+}
+
+.subtotal {
+    font-size: 15px;
+    float: right;
+    color: rgb(211, 108, 35);
+}
+
+.linha {
+    border-color: #333;
+}
+
+.subt, .entr, .tota {
+    display: inline-block;
+    margin-bottom: -18px;
+    color: rgb(211, 108, 35);
+}
+
+.tota {
+    font-weight: bold;
+}
+
+.subtot, .gratis, .total {
+    float: right;
+    margin-bottom: -18px;
+    color: rgb(211, 108, 35);
+}
+
+.total {
+    font-weight: bold;
+}
+
+.vol {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.verificado {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+}
+
+.dad_ver {
+    color: #4caf50;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.endereco-lista {
+    margin-bottom: 20px;
+}
+
+.endereco-item {
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.endereco-item:hover {
+    border-color: #ef890d;
+    box-shadow: 0 0 5px rgba(239, 137, 13, 0.5);
+}
+
+.endereco-item.selecionado {
+    border: 2px solid #ef890d;
+    background-color: #2a2a2a;
+}
+
+.endereco-item-titulo {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ef890d;
+}
+
+.endereco-item-detalhes {
+    font-size: 14px;
+    color: rgb(211, 108, 35);
+}
+
+.endereco-principal {
+    background-color: #1a3a1a;
+    color: #4caf50;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.endereco-form {
+    display: none;
+}
+
+.endereco-form.ativo {
+    display: block;
+}
+
+.endereco-opcoes {
+    margin-bottom: 20px;
+}
+
+.endereco-opcoes label {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .endereco, .identificacao, .pagamento-card, .pedido {
+        width: 100%;
+        float: none;
+        margin-bottom: 20px;
+    }
+    
+    .etapas {
+        width: 100%;
+        float: none;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+    
+    .pedido {
+        margin-left: 0;
+    }
+}

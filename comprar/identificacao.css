@@ -1,0 +1,187 @@
+p{
+    color: white;
+}
+.fin_comp{
+    margin-top: 8px;
+    width: 90%;
+    margin-bottom: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titu{
+    font-size: 32px;
+    font-weight: 200;
+    color: white;
+}
+
+.identificacao{
+    width: 30%;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+    float: left;
+}
+
+.dado{
+    margin-top: -3px;
+    font-weight: bold;
+    font-size: 22px;
+    color: white;
+}
+
+.dado img{
+    width: 30px;
+    margin-bottom: -7px;
+    margin-right: 7px;
+}
+
+.dados{
+    margin-bottom: 15px;
+}
+
+.dados_label{
+    font-size: 17px;
+    color: white;
+}
+
+.insere_dados{
+    border: 1px solid rgb(253, 252, 252);
+    width: 95%;
+    height: 40px;
+    font-size: 17px;
+    margin-top: 7px;
+    background-color: rgb(249, 249, 249);
+}
+
+.insere_dados:focus{
+    outline: 0;
+    box-shadow: rgb(255, 255, 255) 1px 2px 5px ;
+}
+
+.confirma{
+    text-align: center;
+}
+
+.salva_dados{
+    cursor: pointer;
+    width: 85%;
+    height: 35px;
+    border: none;
+    background-color: #992339;
+    color: white;
+    font-size: 17px;
+}
+
+.etapas{
+    float: left;
+    width: 25%;
+}
+
+.entrega{
+    margin-left: 30px;
+    width: 100%;
+    height: 65px;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.etap{
+    margin-top: -3px;
+    font-weight: bold;
+    font-size: 22px;
+    color: white;
+}
+
+.etap img{
+    width: 30px;
+    margin-bottom: -7px;
+    margin-right: 7px;
+}
+
+.pagamento{
+    margin-left: 30px;
+    width: 100%;
+    height: 65px;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+}
+
+.pedido{
+    margin-left: 100px;
+    width: 29%;
+    border: 1px solid rgb(185, 183, 183);
+    box-shadow: rgb(155, 154, 154) 1px 2px 5px ;
+    padding: 20px;
+    float: left;
+}
+
+.resum{
+    margin-top: -3px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.quantidade{
+    width: 5px;
+    margin-bottom: -35px;
+}
+
+.quant{
+    font-size: 13px;
+    color: white;
+}
+
+.imagem_prod{
+    width: 60px;
+}
+
+.imagem{
+    float: left;
+    margin-right: 15px;
+}
+
+.nome{
+    font-size: 15px;
+    margin-bottom: -7px;
+}
+
+.valor{
+    font-size: 14px;
+    display: inline-block;
+}
+
+.subtotal{
+    font-size: 15px;
+    float: right;
+}
+
+.subt, .entr, .tota{
+    display: inline-block;
+    margin-bottom: -18px;
+}
+
+.tota{
+    font-weight: bold;
+}
+
+.total{
+    font-weight: bold;
+}
+
+.subtot, .gratis, .total{
+    float: right;
+    margin-bottom: -18px;
+}
+
+.voltar{
+    color: rgb(255, 255, 255);
+}
+
+.vol{
+    text-align: center;
+    margin-top: 20px;
+}

@@ -1,0 +1,152 @@
+/* Estilos específicos para a página de perfil */
+
+.profile-menu .list-group-item {
+    background-color: #343a40; /* Cor de fundo escura para o menu */
+    color: #f8f9fa; /* Cor do texto clara */
+    border: none;
+    border-bottom: 1px solid #495057; /* Separador sutil */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profile-menu .list-group-item:last-child {
+    border-bottom: none;
+}
+
+.profile-menu .list-group-item i {
+    color: #adb5bd; /* Cor dos ícones */
+    transition: color 0.3s ease;
+}
+
+.profile-menu .list-group-item:hover,
+.profile-menu .list-group-item:focus {
+    background-color: #495057; /* Cor de fundo ao passar o mouse/focar */
+    color: #ffffff;
+}
+
+.profile-menu .list-group-item:hover i,
+.profile-menu .list-group-item:focus i {
+    color: #ffffff;
+}
+
+.profile-menu .list-group-item.active {
+    background-color: #ef890d; /* Cor laranja do tema para item ativo */
+    color: #ffffff;
+    border-color: #ef890d;
+}
+
+.profile-menu .list-group-item.active i {
+    color: #ffffff;
+}
+
+.profile-menu .list-group-item.text-danger,
+.profile-menu .list-group-item.text-danger i {
+    color: #dc3545 !important; /* Cor vermelha para Excluir Conta */
+}
+
+.profile-menu .list-group-item.text-danger:hover {
+    background-color: #dc3545; /* Fundo vermelho ao passar o mouse */
+    color: #ffffff !important;
+}
+
+.profile-menu .list-group-item.text-danger:hover i {
+    color: #ffffff !important;
+}
+
+.profile-title {
+    color: #ef890d; /* Cor laranja do tema para títulos das seções */
+    border-bottom: 2px solid #ef890d;
+    padding-bottom: 10px;
+    margin-bottom: 30px !important; /* Aumenta o espaçamento abaixo do título */
+}
+
+/* Estilização dos formulários e botões */
+#editar-dados .form-label {
+    color: #adb5bd; /* Cor mais clara para labels no fundo escuro */
+}
+
+#editar-dados .form-control {
+    background-color: #495057; /* Fundo escuro para inputs */
+    color: #f8f9fa; /* Texto claro */
+    border: 1px solid #6c757d;
+}
+
+#editar-dados .form-control:focus {
+    background-color: #495057;
+    color: #f8f9fa;
+    border-color: #ef890d;
+    box-shadow: 0 0 0 0.25rem rgba(239, 137, 13, 0.25); /* Sombra laranja no foco */
+}
+
+
+.profile-btn {
+    background-color: #ef890d !important; /* Botão principal laranja */
+    border-color: #ef890d !important;
+    color: #ffffff !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+.profile-btn:hover {
+    background-color: #d9790c; /* Laranja mais escuro no hover */
+    border-color: #d9790c;
+    color: #ffffff;
+}
+
+.profile-btn-alt {
+    background-color: #198754; /* Botão alternativo verde (Adicionar Endereço) */
+    border-color: #198754;
+    color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-btn-alt:hover {
+    background-color: #157347;
+    border-color: #146c43;
+    color: #ffffff;
+}
+
+/* Estilização dos Cards (Endereços e Pedidos) */
+.address-card, .order-card {
+    background-color: #343a40; /* Fundo escuro para os cards */
+    border: 1px solid #495057;
+    color: #ced1d3; /* Texto claro */
+}
+
+.address-card .card-title, .order-card .card-header {
+    color: #ef890d; /* Título/Header laranja */
+}
+
+.address-card .card-text, .order-card .card-text {
+    color: #313131; /* Texto secundário mais suave */
+}
+
+.order-card .card-header {
+    background-color: #495057; /* Fundo um pouco diferente para header do pedido */
+    border-bottom: 1px solid #6c757d;
+}
+
+/* Ajustes para Modal */
+.modal-content {
+    background-color: #212529; /* Fundo bem escuro para modal */
+    color: #f8f9fa;
+}
+
+.modal-header {
+    border-bottom: 1px solid #495057;
+}
+
+.modal-header .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%); /* Deixa o botão de fechar branco */
+}
+
+.modal-title {
+    color: #ef890d;
+}
+
+/* Responsividade: Ajusta o menu para telas menores */
+@media (max-width: 767.98px) {
+    .profile-menu {
+        margin-bottom: 30px; /* Adiciona espaço abaixo do menu no mobile */
+    }
+}
+

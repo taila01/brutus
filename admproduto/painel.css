@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background: white;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+ul.font {
+    list-style: none;
+    padding: 0;
+}
+
+ul.font li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+ul.font li a {
+    text-decoration: none;
+    color: rgb(211, 108, 35);
+    font-size: 20px;
+}
+
+ul.font li a:hover {
+    color: saddlebrown;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.btn-warning {
+    background-color: rgb(211, 108, 35);
+    border-color: rgb(211, 108, 35);
+}
+
+.btn-warning:hover {
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}

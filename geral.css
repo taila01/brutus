@@ -1,0 +1,83 @@
+body {
+    color: rgb(211, 108, 35) ;
+    background-color: black !important;
+}
+
+.navbar {
+    background-color: black ;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-brand { 
+    font-size: 24px;
+    font-weight: bold;
+    color: black !important;
+    display: flex;
+    align-items: center;
+}
+
+.logo { 
+    justify-content: center;
+    font-size: 40px;
+    color: black ; 
+    display: flex;
+    align-items: center ;
+}
+
+.logo0 img {
+    margin-top: -20px; 
+}
+
+.login {
+    color: #f9f9f9; 
+}
+
+.navbar-nav { 
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item { 
+    text-align: center;
+}
+
+.nav-link {
+    color: #ffffff !important;
+    font-weight: bold !important;
+    font-size: 15px !important;
+    margin-right: 15px !important;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover { 
+    color: #ef890d !important ;
+    transform: scale(1.1);
+}
+
+.navbar-icons { 
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 20px;
+}
+
+.navbar-icons a { 
+    color: #fff2cc ;
+    margin-left: 20px;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-icons a:hover {
+    color: #ef890d ;
+}
+
+.mb-4{
+    color: black !important;
+}
