@@ -1,4 +1,4 @@
-# 🍔 Brutus - Sistema de Pedidos Online
+# Brutus - Sistema de Pedidos Online
 
 ## Descrição do Projeto
 
@@ -8,7 +8,7 @@ O sistema oferece uma experiência completa, desde a navegação no cardápio at
 
 ---
 
-## 🚀 Funcionalidades Principais
+## Funcionalidades Principais
 
 O sistema é dividido em dois módulos principais para garantir uma gestão eficiente e uma ótima experiência ao usuário:
 
@@ -25,7 +25,7 @@ O sistema é dividido em dois módulos principais para garantir uma gestão efic
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 * **Linguagem:** PHP (v8.2.12)
 * **Banco de Dados:** MariaDB / MySQL  (v10.4.32)
@@ -35,7 +35,7 @@ O sistema é dividido em dois módulos principais para garantir uma gestão efic
 
 ---
 
-## 📂 Estrutura de Pastas
+## Estrutura de Pastas
 
 ```bash
 brutus-main/
@@ -56,7 +56,7 @@ brutus-main/
 
 ---
 
-## ⚙️ Configuração e Instalação
+## Configuração e Instalação
 
 ### 1️Pré-requisitos
 
