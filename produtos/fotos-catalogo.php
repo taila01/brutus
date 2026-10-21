@@ -1,0 +1,25 @@
+<?php
+// Fotos padronizadas e nomes de arquivo das versões anteriores do catálogo.
+return [
+    'burguer bbq' => ['arquivo' => 'bbq.webp', 'anteriores' => ['683dc0f002fdc.jpg', 'burguerbbq.jpg']],
+    'burguer do chef' => ['arquivo' => 'chef.webp', 'anteriores' => ['683dc13c83624.png', 'burguerchef.png']],
+    'brutu bacon especial' => ['arquivo' => 'bacon.webp', 'anteriores' => ['674f68e2c0014.png', '683dc19e9e66f.png']],
+    'mini brutu cheese' => ['arquivo' => 'mini-cheese.webp', 'anteriores' => ['674f6ab0e32ed.jpeg', '683dc244d71bf.jpeg']],
+    'kids brutu' => ['arquivo' => 'kids.webp', 'anteriores' => ['674f6bac0090e.jpg', '683dc29674610.jpg']],
+    'combo classico' => ['arquivo' => 'classico.webp', 'anteriores' => ['674f6c223b77f.jpg', '683dc2eb7eba4.jpg']],
+    'double brutu bacon' => ['arquivo' => 'double-bacon.webp', 'anteriores' => ['674f6c80b1e0d.jpg', '683dc3265398a.jpg']],
+    'combo kids' => ['arquivo' => 'combo-kids.webp', 'anteriores' => ['674fc4f97f847.jpg', '683dc37e361d7.jpg']],
+    'combo kids 2' => ['arquivo' => 'kids-frango.webp', 'anteriores' => ['674fc5c8cf004.jpg', '683dc43388796.jpg']],
+    'combo veggie' => ['arquivo' => 'veggie.webp', 'anteriores' => ['674fc697bf89a.jpg', '683dc4967d868.jpg']],
+    'combo supreme' => ['arquivo' => 'supreme.webp', 'anteriores' => ['674fc6ffe77c1.jpg', '683dc4ed0b32e.jpg']],
+    'batata rusticas' => ['arquivo' => 'batatas.webp', 'anteriores' => ['674fc8571cdef.jpg', '683dc51791fd2.jpg']],
+    'onion rings' => ['arquivo' => 'onion-rings.webp', 'anteriores' => ['674fc8d87b418.jpg', '683dc540e9e64.jpg']],
+    'nuggets' => ['arquivo' => 'nuggets.webp', 'anteriores' => ['674fc9d4b1869.jpg', '683dc57cdc776.jpg']],
+    'chips de batata doce' => ['arquivo' => 'chips.webp', 'anteriores' => ['674fca1b6a619.jpg', '683dc5ada6b6c.jpg']],
+    'refrigerante' => ['arquivo' => 'refrigerante.webp', 'anteriores' => ['674fcc0617fa1.png', '683dc5d17165b.png']],
+    'suco' => ['arquivo' => 'suco.webp', 'anteriores' => ['674fcceadffd5.png', '683dc5f54b946.png']],
+    'cerveja artesanal' => ['arquivo' => 'cerveja.webp', 'anteriores' => ['674fcd27094ef.jpg', '683dc61b739cc.jpg']],
+    'milkshake' => ['arquivo' => 'milkshake.webp', 'anteriores' => ['674fcf4a2ecbf.jpg', '683dc640cca31.jpg']],
+    'mini churrus' => ['arquivo' => 'churros.webp', 'anteriores' => ['674fcfc2c73aa.jpg', '683dc66d53acb.jpg']],
+    'brownie com sorvete' => ['arquivo' => 'brownie.webp', 'anteriores' => ['674fd059bda9c.jpg', '683dc6983dbbc.jpg']],
+];

@@ -1,45 +1,22 @@
 <?php
-session_start(); // Inicie a sessão no topo do código
-require_once("../funcao.php");
-
-$usuario = $_POST["email"];
-$senha = $_POST["password"];
-$tipo = "2"; // Por padrão, é cliente, senão é ADM
-
-$erro = "";
-
-if ($usuario == "") { 
-    $erro .= "Digite o usuário<br/>";
-} elseif ($senha == "") { 
-    $erro .= "Digite a senha<br/>";
+session_start();
+require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../validacao.php';
+$email=campo($_POST,'email');
+$senha=is_string($_POST['password']??null)?$_POST['password']:'';
+$usuario=false;
+if ($_SERVER['REQUEST_METHOD']==='POST' && filter_var($email,FILTER_VALIDATE_EMAIL) && strlen($email)<=254 && $senha!=='' && strlen($senha)<=256) {
+    $db=brutusPDO();
+    $q=$db->prepare('SELECT codigo, senha, fk_tipos_usuario_codigo FROM usuario WHERE LOWER(email)=LOWER(?) LIMIT 1');
+    $q->execute([$email]);
+    $usuario=$q->fetch();
 }
-
-if ($erro) {
-    $_SESSION['erro_login'] = $erro; // Armazena os erros na sessão
-    header('Location: login.php'); // Redireciona para a página de login
-    exit;
+if (!$usuario || !senhaCorreta($senha,$usuario['senha'])) {
+    $_SESSION['erro_login']='E-mail ou senha incorretos.';
+    header('Location: login.php'); exit;
 }
-
-$senha_md5 = md5($senha);
-$usuarioSenha = "SELECT * FROM usuario WHERE email = '$usuario' AND senha = '$senha_md5' ";
-
-$result = mysqli_query($conexao, $usuarioSenha) or die("Impossível verificar o cliente");
-$qtdREGISTRO = mysqli_num_rows($result);
-$linha = mysqli_fetch_assoc($result);
-
-if ($qtdREGISTRO > 0) {
-    $c = $linha["fk_tipos_usuario_codigo"];
-    $_SESSION['id_logado'] = $linha['codigo'];
-    if($c == 2){
-        header('Location: ../usuario/perfil.php'); // Redireciona para a página inicial
-    } elseif($c == 1){
-        header('Location: ../admproduto/painel.php'); // Redireciona para a página inicial
-    }
-    
-} else {
-    $_SESSION['erro_login'] = 'E-mail ou senha incorretos!'; // Mensagem de erro
-    header('Location: login.php'); // Redireciona para a página de login
-    exit;
-}
-?>
-
+session_regenerate_id(true);
+$_SESSION['id_logado']=(int)$usuario['codigo'];
+$_SESSION['tipos_usuario']=(int)$usuario['fk_tipos_usuario_codigo'];
+header('Location: '.($_SESSION['tipos_usuario']===1?'../admproduto/painel.php':'../usuario/perfil.php'));
+exit;

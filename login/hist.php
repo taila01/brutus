@@ -10,30 +10,21 @@ if (!isset($_SESSION['id_logado'])) {
 }
 
 // Conexão com o banco de dados
-$servername = "localhost";
-$username = "root"; // Ajuste conforme seu ambiente
-$password = "";     // Ajuste conforme seu ambiente
-$dbname = "brutus";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar conexão
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
+require_once __DIR__ . "/../database.php";
+$conn = brutusMysqli();
 
 // ID do cliente logado
 $usuario_id = $_SESSION['id_logado'];
 
 // Consulta para buscar o histórico de pedidos do cliente
 $sql = "
-    SELECT 
-        p.cod_pedido, 
-        p.datahora_pedido, 
-        p.total_pedidos, 
+    SELECT
+        p.cod_pedido,
+        p.datahora_pedido,
+        p.total_pedidos,
         sp.status_pedidos
     FROM pedidos p
-    INNER JOIN status_pedidos sp ON p.fk_Status_Pedidos_cod_status_pedidos = sp.cod_status_pedidos
+    LEFT JOIN status_pedidos sp ON p.cod_status_pedidos = sp.cod_status_pedidos
     WHERE p.fk_Usuario_codigo = ?
     ORDER BY p.datahora_pedido DESC
 ";
@@ -48,6 +39,7 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="/brutus/assets/tema.js?v=1"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico de Pedidos | BRUTUS</title>
@@ -55,8 +47,9 @@ $result = $stmt->get_result();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../geral.css">
+<link rel="stylesheet" href="/brutus/interface.css?v=3">
 </head>
-<body>
+<body class="brutus-urban" data-flavor="paprica">
 
 <?php include_once "../cabecalho.html"; ?>
 
@@ -77,7 +70,7 @@ $result = $stmt->get_result();
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr class="text-center">
                             <td><?php echo $row['cod_pedido']; ?></td>
-                            <td><?php echo date("d/m/Y H:i:s", strtotime($row['datahora_pedido'])); ?></td>
+                            <td><?php echo date("d/m/Y H:i:s", strtotime($row['datahora_pedido'] ?? '')); ?></td>
                             <td class="text-success fw-bold">
                                 R$ <?php echo number_format($row['total_pedidos'], 2, ',', '.'); ?>
                             </td>

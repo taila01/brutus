@@ -1,5 +1,20 @@
 <?php
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 include_once "conexao.php";
+require_once __DIR__.'/../validacao.php';
+$errosFormulario=[];
+if ($_SERVER['REQUEST_METHOD']==='POST' && (isset($_POST['btn_cadastrar']) || isset($_POST['btn_editar']))) {
+    $errosFormulario=array_merge(validarTexto(campo($_POST,'nome'),'Nome do produto',50),validarTexto(campo($_POST,'descricao'),'Descrição',200));
+    $valor=str_replace(',','.',campo($_POST,'preco'));
+    if (!preg_match('/^\d{1,5}(?:\.\d{1,2})?$/',$valor) || (float)$valor<0.01 || (float)$valor>99999.99) $errosFormulario[]='O preço deve estar entre R$ 0,01 e R$ 99.999,99, com até duas casas decimais.';
+    $categoria=filter_var(campo($_POST,'categoria'),FILTER_VALIDATE_INT);
+    $q=$conn->prepare('SELECT cod_categoria FROM categoria WHERE cod_categoria=?');$q->bind_param('i',$categoria);$q->execute();
+    if (!$q->get_result()->fetch_row()) $errosFormulario[]='Escolha uma categoria válida.';
+    if ($errosFormulario) unset($_POST['btn_cadastrar'],$_POST['btn_editar']);
+    else $_POST['preco']=$valor;
+}
+
+require_once __DIR__ . "/../imagem-produto.php";
 
 if (isset($_POST["btn_cadastrar"])) {
     $nome = $_POST['nome'];
@@ -96,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_exclusao'])
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script src="/brutus/assets/tema.js?v=1"></script>
     <meta charset="UTF-8">
     <title>Administrador | BRUTUS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -199,12 +215,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_exclusao'])
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('dados-pessoais')?.classList.add('active');
+            document.getElementById('produtos')?.classList.add('active');
         });
     </script>
+<link rel="stylesheet" href="/brutus/interface.css?v=3">
 </head>
-<body>
+<body class="admin-page brutus-urban" data-flavor="chapa">
+<?php include __DIR__ . "/../cabecalho.html"; ?>
     <h1>Olá, administrador!</h1>
+<?php foreach ($errosFormulario as $erro): ?><div class="container alert alert-danger" role="alert"><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></div><?php endforeach; ?>
 
     <ul class="font">
         <li><a href="#" onclick="showSection('cadastro_pro')">Cadastro de Produto</a></li>
@@ -219,15 +238,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_exclusao'])
         <form method="POST" enctype="multipart/form-data" class="row g-3">
             <div class="col-md-6">
                 <label class="form-label">Nome do Produto</label>
-                <input type="text" name="nome" class="form-control" required>
+                <input type="text" name="nome" maxlength="50" class="form-control" required>
             </div>
             <div class="col-md-6">
                 <label class="form-label">Preço</label>
-                <input type="number" name="preco" step="0.01" class="form-control" required>
+                <input type="number" name="preco" min="0.01" max="99999.99" step="0.01" class="form-control" required>
             </div>
             <div class="col-12">
                 <label class="form-label">Descrição</label>
-                <textarea name="descricao" class="form-control" rows="3" required></textarea>
+                <textarea name="descricao" maxlength="200" class="form-control" rows="3" required></textarea>
             </div>
             <div class="col-md-6">
                 <label class="form-label">Imagem</label>
@@ -265,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_exclusao'])
                 <?php foreach($itens as $item): ?>
                     <div class="col">
                         <div class="card h-100">
-                            <img src="../produtos/<?= htmlspecialchars($item['imagem']) ?>" class="card-img-top" alt="<?= htmlspecialchars($item['nome']) ?>">
+                            <img src="<?= imagemProduto($item) ?>" class="card-img-top" alt="<?= htmlspecialchars($item['nome']) ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($item['nome']) ?></h5>
                                 <p class="card-text"><?= htmlspecialchars($item['descricao']) ?></p>
@@ -295,20 +314,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_exclusao'])
                 <input type="hidden" name="id_item" value="<?= $item['cod_item'] ?>">
                 <div class="col-md-6">
                     <label class="form-label">Nome do Produto</label>
-                    <input type="text" name="nome" class="form-control" value="<?= htmlspecialchars($item['nome']) ?>" required>
+                    <input type="text" name="nome" maxlength="50" class="form-control" value="<?= htmlspecialchars($item['nome']) ?>" required>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Preço</label>
-                    <input type="number" name="preco" step="0.01" class="form-control" value="<?= number_format((float)$item['preco'],2,'.','') ?>" required>
+                    <input type="number" name="preco" min="0.01" max="99999.99" step="0.01" class="form-control" value="<?= number_format((float) str_replace(',', '.', $item['preco']),2,'.','') ?>" required>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Descrição</label>
-                    <textarea name="descricao" class="form-control" rows="3" required><?= htmlspecialchars($item['descricao']) ?></textarea>
+                    <textarea name="descricao" maxlength="200" class="form-control" rows="3" required><?= htmlspecialchars($item['descricao']) ?></textarea>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Imagem</label>
                     <input type="file" name="imagem" class="form-control" accept="image/*" onchange="previewImagem(this,'imgPreview_<?= $item['cod_item'] ?>')">
-                    <img id="imgPreview_<?= $item['cod_item'] ?>" class="img-preview mt-2" src="../produtos/<?= htmlspecialchars($item['imagem']) ?>" style="max-width:100px;">
+                    <img id="imgPreview_<?= $item['cod_item'] ?>" class="img-preview mt-2" src="<?= imagemProduto($item) ?>" style="max-width:100px;">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Categoria</label>
@@ -391,6 +410,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_exclusao'])
             </tbody>
         </table>
     </div>
+<?php include __DIR__ . "/../rodape.html"; ?>
 </body>
 </html>
 

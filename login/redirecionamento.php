@@ -8,7 +8,7 @@ if (!isset($_SESSION['id_logado'])) {
 }
 
 // Verifica o tipo de usuário e redireciona
-if ($_SESSION['tipos_usuario'] == 1) {
+if (($_SESSION['tipos_usuario'] ?? 2) == 1) {
     // Administrador
     header('Location: ../admproduto/painel.php');
 } else {

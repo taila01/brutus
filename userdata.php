@@ -9,17 +9,8 @@ if (!isset($_SESSION['id_logado'])) {
 }
 
 // Conexão com o banco de dados
-$servername = "localhost";
-$username = "root"; // Ajuste conforme seu ambiente
-$password = "";     // Ajuste conforme seu ambiente
-$dbname = "brutus";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar conexão
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
+require_once __DIR__ . "/database.php";
+$conn = brutusMysqli();
 
 // ID do cliente logado
 $usuario_id = $_SESSION['id_logado'];
@@ -50,15 +41,17 @@ if (isset($_POST['logout'])) {
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script src="/brutus/assets/tema.js?v=1"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dados do Usuário | BRUTUS</title>
     <link rel="icon" href="../img/favicon.svg" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="../custom.css">
+    <link rel="stylesheet" href="/brutus/geral.css">
+<link rel="stylesheet" href="/brutus/interface.css?v=3">
 </head>
-<body>
+<body class="brutus-urban" data-flavor="cheddar">
 
 <?php include_once "cabecalho.html"; ?>
 

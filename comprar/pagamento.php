@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script src="/brutus/assets/tema.js?v=1"></script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +10,25 @@
   <link rel="stylesheet" type="text/css" href="checkout_padronizado.css" />
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <title>Brutus - Comprar</title>
+<link rel="stylesheet" href="/brutus/interface.css?v=3">
 </head>
-<body>
-<?php 
-session_start(); // abre a sessão
+<body class="brutus-urban" data-flavor="cheddar">
+<?php
+session_start();
+require_once __DIR__."/../validacao.php";
+require_once __DIR__ . "/../preco-produto.php";
+require_once __DIR__ . "/../imagem-produto.php";
+$_SESSION["carrinho"] = $_SESSION["carrinho"] ?? []; // abre a sessão
 
     include_once "../cabecalho.html";
     include_once "conecta.php";
-    if(!isset ($_SESSION['id_logado']) == true){ 
+    if(!isset ($_SESSION['id_logado']) == true){
         header ('location: ../login/login.php');
-    } 
+    }
 
     else{
         $cliente= $_SESSION['id_logado'];
-        
+
         // Verificar se o endereço de entrega foi selecionado
         if(!isset($_SESSION['endereco_entrega']) || empty($_SESSION['endereco_entrega'])) {
             // Se não tiver endereço selecionado, redireciona para a página de endereço
@@ -30,23 +36,24 @@ session_start(); // abre a sessão
             header('location: endereco.php?modo=selecionar');
             exit;
         }
-        
+
         // Buscar informações do endereço selecionado
         $endereco_id = $_SESSION['endereco_entrega'];
         $query_endereco = "SELECT * FROM endereco WHERE cod_endereco = $endereco_id AND fk_Usuario_codigo = $cliente";
         $resultado_endereco = mysqli_query($conn, $query_endereco);
-        
+
         if(mysqli_num_rows($resultado_endereco) == 0) {
             // Se o endereço não for encontrado, redireciona para a página de endereço
             $_SESSION['erro'] = "Endereço não encontrado. Por favor, selecione um endereço válido.";
             header('location: endereco.php?modo=selecionar');
             exit;
         }
-        
+
         $endereco = mysqli_fetch_assoc($resultado_endereco);
-    
+
 ?>
     <div class="fin_comp">
+<?php formularioFeedback("checkout_erros"); ?>
         <h2 class="titu">Finalizar Compra</h2>
         <div class="pedido">
             <p class="resum">Resumo do pedido<p>
@@ -59,15 +66,15 @@ session_start(); // abre a sessão
                     WHERE cod_item = '$id'";
                     $resultado = mysqli_query($conn,$sql) or die (mysqli_error());
                     $linha = mysqli_fetch_array($resultado);
-                    
+
                     //0 id, 1 nome, 2 preco e 3 imagem
                     $nome = $linha[1];
-                    $preco = str_replace("," , "" , $linha[2] );
+                    $preco = precoProduto($linha);
                     $subtota = $preco * $qtd;
                     $subtotal =  number_format($subtota, 2, ',', '.');
                     $valor = number_format($preco, 2, ',', '.');
                     $total_carrinho += $subtota;
-                    $caminhoImagem = "../produtos/" . $linha[3]; 
+                    $caminhoImagem = imagemProduto($linha);
 
                    echo "<div class='produto'>
                             <div class='quantidade'>
@@ -80,14 +87,14 @@ session_start(); // abre a sessão
                                 <div class='linha_1'>
                                     <p class='nome'>$linha[1]</p>
                                 </div>
-                                <div class= 'linha_2'> 
+                                <div class= 'linha_2'>
                                     <p class='valor'>R$ $valor</p>
                                     <p class='subtotal'>Total: R$ $subtotal</p>";?>
                                 </div>
                             </div>
                         </div>
-                          <?php			 
-                }		
+                          <?php
+                }
             ?>
             <hr class="linha">
             <div class="preco">
@@ -120,10 +127,10 @@ session_start(); // abre a sessão
         $par8=  number_format($total_carrinho/8,2,",",".");
         $par9=  number_format($total_carrinho/9,2,",",".");
         $par10=  number_format($total_carrinho/10,2,",",".");
-    
+
 ?>
 
-    
+
 <div class="pagamento-card">
     <p class="titulo">Pagamento</p>
 
@@ -188,7 +195,7 @@ session_start(); // abre a sessão
                 </div>
             </a>
         </div>
-    </div>  
+    </div>
 
     <?php
     }
@@ -227,7 +234,7 @@ window.onload = function(){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 <script>
- $(document).ready(function () { 
+ $(document).ready(function () {
         var $CPF = $("#CPF");
         $CPF.mask('000.000.000-00', {reverse: true});
 });

@@ -1,0 +1,5 @@
+# Credenciais locais e certificados
+.env
+.env.*
+!.env.example.php
+certs/*.pem

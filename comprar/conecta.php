@@ -1,12 +1,3 @@
 <?php
-	$servername = "localhost";
-	$database = "brutus";
-	$username = "root";
-	$password = ""; 
-
-	$conn = mysqli_connect(
-		$servername,
-		$username,
-		$password,
-		$database);	
-?>
+require_once __DIR__ . "/../database.php";
+$conn = brutusMysqli();

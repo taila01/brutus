@@ -4,11 +4,11 @@ session_start();
 include_once "conexao.php";
 
 try {
-    $conn = new PDO("mysql:host=$host;dbname=" . $database, $username, $password);
+    $conn = brutusPDO();
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if (!isset($_SESSION['id_logado']) || empty($_SESSION['id_logado'])) {
-        header("Location: login.php");
+        header("Location: /brutus/login/login.php");
         exit;
     }
 

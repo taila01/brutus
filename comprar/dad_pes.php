@@ -1,30 +1,16 @@
 <?php
-    session_start(); // abre a sessão
-    include_once "conecta.php"; 
-    $cliente= $_SESSION['id_logado'];
-
-    if ( isset($_POST["btn_dados"]) )
-    {
-        $nome= $_POST['nome'];
-        $cpf= $_POST['cpf'];
-        $email= $_POST['email'];
-
-        $cpf = str_replace("." , "" , $cpf );
-        $cpf = str_replace("-" , "" , $cpf );
-
-        $sqldados = "UPDATE usuario
-                      SET NOME='$nome', CPF='$cpf'
-                      WHERE CODIGO=$cliente";
-                    
-        mysqli_query($conn, $sqldados)or die( mysqli_error($conn) );
-    
-
-    $sqldado = "UPDATE usuario
-                      SET email ='$email'
-                      WHERE CODIGO=$cliente";
-                    
-        mysqli_query($conn, $sqldado)or die( mysqli_error($conn) );
-    }
-?>
-
-<?php header("Location: endereco.php"); ?>
+session_start();
+require_once __DIR__.'/../database.php';
+require_once __DIR__.'/../validacao.php';
+if (empty($_SESSION['id_logado'])) {header('Location: /brutus/login/login.php');exit;}
+if ($_SERVER['REQUEST_METHOD']!=='POST') {header('Location: identificacao.php');exit;}
+$dados=[];foreach(['nome','email','cpf'] as $chave)$dados[$chave]=campo($_POST,$chave);
+$db=brutusPDO();$erros=validarPessoa($dados,false);
+if (emailEmUso($db,$dados['email'],(int)$_SESSION['id_logado'])) $erros[]='Este e-mail já está em uso por outra conta.';
+if ($erros) {
+    $_SESSION['checkout_erros']=$erros;$_SESSION['pessoa_old']=$dados;
+    header('Location: identificacao.php');exit;
+}
+$q=$db->prepare('UPDATE usuario SET nome=?,cpf=?,email=? WHERE codigo=?');
+$q->execute([$dados['nome'],digitos($dados['cpf']),$dados['email'],(int)$_SESSION['id_logado']]);
+header('Location: endereco.php');exit;

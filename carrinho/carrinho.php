@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script src="/brutus/assets/tema.js?v=1"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../geral.css">
     <link rel="stylesheet" type="text/css" href="carrinho.css">
+<link rel="stylesheet" href="/brutus/interface.css?v=3">
 </head>
 
-<body>
+<body class="brutus-urban" data-flavor="molho">
 
 <?php
 session_start();
+require_once __DIR__ . "/../preco-produto.php";
+require_once __DIR__ . "/../imagem-produto.php";
+$_SESSION["carrinho"] = $_SESSION["carrinho"] ?? [];
 
 if (!isset($_SESSION['id_logado'])) {
     header('location: ../login/login.php');
+    exit;
 } else {
 
     include_once "../cabecalho.html";
@@ -37,43 +43,35 @@ if (!isset($_SESSION['id_logado'])) {
             $_SESSION['carrinho'] = array();
         }
 
-        if (isset($_GET['acao'])) {
-
-            if ($_GET['acao'] == 'add') {
-                $id = $_GET['id'];
-
-                if (!isset($_SESSION['carrinho'][$id])) {
-                    $_SESSION['carrinho'][$id] = 1;
-                } else {
-                    $_SESSION['carrinho'][$id]++;
+        $avisoCarrinho='';
+        $acao=is_string($_GET['acao']??null)?$_GET['acao']:'';
+        $id=filter_var($_GET['id']??null,FILTER_VALIDATE_INT);
+        if ($id && $id>0 && in_array($acao,['add','del','up'],true)) {
+            if ($acao==='add') {
+                $consulta=$conn->prepare('SELECT cod_item FROM itens WHERE cod_item=?');$consulta->bind_param('i',$id);$consulta->execute();
+                if ($consulta->get_result()->fetch_row()) {
+                    $atual=(int)($_SESSION['carrinho'][$id]??0);
+                    if ($atual<99) $_SESSION['carrinho'][$id]=$atual+1;
+                    else $avisoCarrinho='O limite é de 99 unidades por produto.';
                 }
-            }
-
-            if ($_GET['acao'] == 'del') {
-                $id = $_GET['id'];
-                unset($_SESSION['carrinho'][$id]);
-            }
-
-            if ($_GET['acao'] == 'up') {
-                $id = $_GET['id'];
-
-                if ($_SESSION['carrinho'][$id] == 1) {
-                    unset($_SESSION['carrinho'][$id]);
-                } else {
-                    $_SESSION['carrinho'][$id]--;
-                }
+            } elseif ($acao==='del') unset($_SESSION['carrinho'][$id]);
+            elseif (isset($_SESSION['carrinho'][$id])) {
+                if ($_SESSION['carrinho'][$id]<=1) unset($_SESSION['carrinho'][$id]);
+                else $_SESSION['carrinho'][$id]--;
             }
         }
 ?>
 
-    <h1 class="titulo">Meu carrinho</h1>
+    <h1 class="titulo">SEU BONDE DE SABORES.</h1>
+    <?php if ($avisoCarrinho): ?><p class="alert alert-warning" role="alert"><?= $avisoCarrinho ?></p><?php endif; ?>
 
     <div class="carrinho">
         <form action="carrinho.php?acao=up" method="post">
 
 <?php
+    $total_carrinho = 0;
     if (count($_SESSION['carrinho']) == 0) {
-        echo "<p class='n_ped'>Não há produto no carrinho!</p>";
+        echo "<div class='empty-state'><p class='eyebrow'>Sua próxima mordida começa aqui</p><h2>A sacola está esperando.</h2><p>Escolha seu favorito e monte um pedido com a sua cara.</p><a class='primary-button' href='/brutus/cardapio/cardapio.php'>Explorar cardápio ↗</a></div>";
     } else {
 
         $total_carrinho = 0;
@@ -84,7 +82,7 @@ if (!isset($_SESSION['id_logado'])) {
             $resultado = mysqli_query($conn, $sql);
             $linha = mysqli_fetch_array($resultado);
 
-            $preco = str_replace(",", "", $linha[3]);
+            $preco = precoProduto($linha);
             $subtotal = $preco * $qtd;
             $total_carrinho += $subtotal;
 
@@ -94,7 +92,7 @@ if (!isset($_SESSION['id_logado'])) {
 
             <div class="produto">
                 <div class="imagem">
-                    <img src="../produtos/<?= $linha[4] ?>" class="imagem_prod">
+                    <img src="<?= imagemProduto($linha) ?>" alt="<?= htmlspecialchars($linha[1], ENT_QUOTES, 'UTF-8') ?>" class="imagem_prod">
                 </div>
 
                 <div class="inf">

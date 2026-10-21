@@ -16,13 +16,13 @@ $filtro_categoria = isset($_GET['categoria']) ? intval($_GET['categoria']) : 0;
 $data_inicial = isset($_GET['data_inicial']) ? $_GET['data_inicial'] : '';
 $data_final = isset($_GET['data_final']) ? $_GET['data_final'] : '';
 
-$sql = "SELECT 
+$sql = "SELECT
             i.nome AS nome_produto,
             REPLACE(i.preco, ',', '.') AS preco_unitario,
             SUM(ip.quantidade) AS total_vendido
-        FROM 
+        FROM
             itens_pedido AS ip
-        JOIN 
+        JOIN
             itens AS i ON ip.cod_item = i.cod_item
         JOIN
             pedidos AS p ON ip.codigo_pedido = p.cod_pedido
@@ -53,7 +53,9 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+<script src="/brutus/assets/tema.js?v=1"></script>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Relatório de Produtos Mais Vendidos</title>
     <style>
         body {
@@ -122,8 +124,10 @@ $result = $conn->query($sql);
             background-color: saddlebrown;
         }
     </style>
+<link rel="stylesheet" href="/brutus/interface.css?v=3">
 </head>
-<body>
+<body class="admin-page brutus-urban" data-flavor="paprica">
+<?php include __DIR__ . "/../cabecalho.html"; ?>
 <h2>Relatório de Produtos Mais Vendidos</h2>
 
 <form method="GET">
@@ -150,7 +154,7 @@ $result = $conn->query($sql);
 
 </form>
 
-<table>
+<div class="urban-report-table"><table>
     <tr>
         <th>Produto</th>
         <th>Quantidade Vendida</th>
@@ -178,7 +182,7 @@ $result = $conn->query($sql);
         echo "<tr><td colspan='4'>Nenhum registro encontrado.</td></tr>";
     }
     ?>
-</table>
+</table></div>
 
 <br>
 <button id="print" onclick="window.print()">Imprimir / Salvar em PDF</button>
@@ -224,5 +228,6 @@ $result = $conn->query($sql);
         }
     });
 </script>
+<?php include __DIR__ . "/../rodape.html"; ?>
 </body>
 </html>
