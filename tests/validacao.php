@@ -1,5 +1,5 @@
 <?php
-require __DIR__.'/../validacao.php';
+require __DIR__ . '/../app/helpers/validacao.php';
 function verificar(bool $condicao,string $mensagem): void {if(!$condicao)throw new RuntimeException($mensagem);}
 verificar(cpfValido('529.982.247-25'),'CPF válido formatado');
 verificar(cpfValido('11144477735'),'CPF válido sem pontuação');

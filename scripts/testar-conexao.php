@@ -1,6 +1,6 @@
 <?php
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
-require __DIR__ . '/../database.php';
+require __DIR__ . '/../app/database.php';
 try {
     $config = brutusDatabaseConfig();
     $pdo = brutusPDO();

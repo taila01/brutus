@@ -1,165 +1,110 @@
-# Brutus - Sistema de Pedidos Online
+# Brutus — Burger House
 
-## Descrição do Projeto
+Sistema de pedidos em PHP 8.2+ e MySQL/MariaDB, com cardápio, combos, promoções, cadastro, sacola, checkout e painel administrativo.
 
-O projeto **Brutus** é um sistema de pedidos online (e-commerce) robusto, desenvolvido para o segmento de alimentação, como hamburguerias ou restaurantes. Ele foi construído utilizando **PHP 8.2.12** e banco de dados **MariaDB 10.4.32** [1].
+## Estrutura
 
-O sistema oferece uma experiência completa, desde a navegação no cardápio até a finalização do pedido, contando com uma interface moderna e responsiva baseada no **Bootstrap 5.3**.
-
----
-
-## Funcionalidades Principais
-
-O sistema é dividido em dois módulos principais para garantir uma gestão eficiente e uma ótima experiência ao usuário:
-
-| Módulo | Funcionalidades | Arquivos Chave |
-| :--- | :--- | :--- |
-| **Área do Cliente** | - Cadastro e Login seguro. | `cadastro/cadastro.php` |
-| | - Cardápio dinâmico por categorias. | `cardapio/cardapio.php` |
-| | - Carrinho de compras interativo. | `carrinho/carrinho.php` |
-| | - Gestão de endereços e perfil. | `usuario/perfil.php` |
-| | - Checkout simplificado. | `comprar/identificacao.php` |
-| **Painel Adm** | - Gestão completa de produtos (CRUD). | `admproduto/painel.php` |
-| | - Relatórios detalhados de itens. | `admproduto/relatorio.php` |
-| | - Rastreamento de pedidos em tempo real. | `admproduto/painel.php` |
-
----
-
-## Tecnologias Utilizadas
-
-* **Linguagem:** PHP (v8.2.12)
-* **Banco de Dados:** MariaDB / MySQL  (v10.4.32)
-* **Front-end:** HTML5 , CSS3 , JavaScript
-* **Framework UI:** Bootstrap 5.3
-* **Ícones:** Font Awesome
-
----
-
-## Estrutura de Pastas
-
-```bash
-brutus-main/
-├── admproduto/      # Gestão administrativa
-├── backup/          # Backups do banco de dados (.sql)
-├── borcer/          # Fontes personalizadas
-├── cadastro/        # Módulo de novos usuários
-├── cardapio/        # Listagem de produtos
-├── carrinho/        # Lógica de compras
-├── comprar/         # Processo de checkout
-├── img/             # Assets visuais e logos
-├── login/           # Autenticação
-├── produtos/        # Fotos dos itens
-├── sobre/           # Informações institucionais
-├── usuario/         # Painel do cliente
-└── index.php        # Porta de entrada do sistema
+```text
+brutus/
+├── app/
+│   ├── database.php         # Fábricas de conexão PDO e MySQLi
+│   ├── conexoes/            # Adaptadores utilizados pelas páginas
+│   ├── helpers/             # Validação, preços e imagens dos produtos
+│   └── views/
+│       ├── layout/         # Cabeçalho e rodapé compartilhados
+│       └── components/     # Cards reutilizáveis
+├── config/                 # Ofertas e mapeamento das fotos do catálogo
+├── database/
+│   ├── schema.sql          # Estrutura atual e catálogo inicial, sem clientes
+│   ├── migrations/         # Atualizações para bancos existentes
+│   └── legacy/             # Exportações históricas; não usar em instalações novas
+├── public/                 # Única pasta exposta pelo servidor web
+│   ├── assets/
+│   │   ├── css/            # Estilos globais, temas e estilos por módulo
+│   │   ├── js/             # Tema, formulários, CEP e sacola
+│   │   ├── img/            # Logos, banners e ícones do checkout
+│   │   └── fonts/          # Fontes locais
+│   ├── produtos/           # Fotos do catálogo e uploads do administrador
+│   ├── admproduto/         # Produtos, pedidos e relatórios administrativos
+│   ├── cadastro/           # Cadastro do cliente
+│   ├── cardapio/           # Listagem por categoria
+│   ├── carrinho/           # Sacola e API de quantidades
+│   ├── comprar/            # Identificação, endereço e pagamento
+│   ├── login/              # Autenticação e histórico
+│   ├── sobre/              # História da hamburgueria
+│   ├── usuario/            # Perfil, endereços e detalhes do pedido
+│   ├── index.php           # Página inicial
+│   ├── combos.php
+│   └── promocoes.php
+├── scripts/                # Servidor local e manutenção por linha de comando
+├── tests/                  # Testes de comportamento e estrutura
+├── certs/                  # Certificado CA privado, ignorado pelo Git
+├── .env.example.php        # Modelo de configuração
+└── .env.local.php          # Configuração privada, ignorada pelo Git
 ```
 
----
+As URLs continuam usando o prefixo `/brutus/`. Os includes PHP usam `__DIR__`, para funcionar independentemente da pasta de execução. Código compartilhado fica em `app/`, regras configuráveis em `config/` e arquivos estáticos em `public/assets/`. O CEP tem uma única implementação compartilhada.
 
-## Configuração e Instalação
+## Rodar localmente
 
-### 1️Pré-requisitos
+Requisitos: PHP 8.2+ com `pdo_mysql`, `mysqli` e `mbstring`, MySQL/MariaDB e Node.js para os testes de JavaScript.
 
-Ambiente de servidor local (ex: **XAMPP**, **WAMP** ou **Laragon**) com:
+1. Copie `.env.example.php` para `.env.local.php` e configure a conexão.
+2. Em um banco vazio chamado `brutus`, importe `database/schema.sql`. A carga inclui 10 tabelas e 21 produtos, sem usuários, senhas, endereços ou pedidos. Crie sua conta pelo cadastro.
+3. Confira a conexão e inicie o servidor na raiz do projeto:
 
-* PHP 8.2+
-* MySQL/MariaDB
-
-### 2️Banco de Dados
-
-1. Crie um banco chamado `brutus`.
-2. Importe o arquivo `backup/brutus_CERTO.sql`.
-
-### 3️Conexão
-
-Ajuste as credenciais no arquivo `userdata.php`:
-
-```php
-$servername = "localhost";
-$username = "root"; 
-$password = "";     
-$dbname = "brutus";
+```sh
+php scripts/testar-conexao.php
+php -S 127.0.0.1:8091 -t public scripts/router.php
 ```
 
----
+Acesse **http://localhost:8091/brutus/**. O roteador de desenvolvimento mantém esse prefixo e entrega somente arquivos de `public/`.
 
-## Referências
+Para Apache, configure `Alias /brutus` apontando para o caminho absoluto de `public/`, com acesso permitido a esse diretório. No Nginx, configure a localização `/brutus/` e o PHP-FPM para essa mesma pasta. A raiz do repositório não deve ser usada como raiz pública. A pasta `public/produtos/` precisa permitir gravação para os uploads do painel.
 
-[1] phpMyAdmin. *Versão do PHP: 8.2.12*. Metadados extraídos do arquivo de exportação SQL. Disponível em: `/home/ubuntu/brutus_project/brutus-main/backup/brutus_CERTO.sql`.
+## Banco e Aiven
 
----
-*Desenvolvido por Caroline, Paulo e Taila.*
+As conexões são centralizadas em `app/database.php`. A senha fica em `.env.local.php` e o certificado em `certs/aiven-ca.pem`; ambos permanecem fora do Git.
 
-## Prévia visual local
-
-- Página inicial: `/brutus/`
-- Combos: `/brutus/combos.php`
-- Promoções: `/brutus/promocoes.php`
-- As três ofertas locais de demonstração ficam em `promocoes-config.php`. Os IDs correspondem ao backup `brutus_CERTO.sql`; revisar ao trocar o catálogo no Aiven.
-- `preco-produto.php` mantém os valores consistentes entre catálogo, carrinho e checkout.
-- O backup antigo precisa de ajustes de estrutura para as telas mais recentes. O script CLI `scripts/atualizar-banco-local.php` adiciona os campos ausentes sem apagar os registros. Ele foi aplicado somente no banco local; não executa pelo navegador.
-- Antes de apontar para o Aiven, revisar a configuração de conexão e os descontos de demonstração. O histórico guarda o preço unitário dos novos pedidos em `itens_pedido.preco_unitario`.
-
-### Importação no Aiven
-
-Para banco **vazio**, usar `backup/brutus_AIVEN.sql`. Esse arquivo inclui as chaves primárias na própria criação das tabelas e os campos das telas atuais. Contém somente a estrutura e o catálogo inicial, sem clientes, senhas, endereços ou pedidos.
-
-No cliente MySQL já conectado ao Aiven:
+Para um banco Aiven **vazio**, no cliente MySQL conectado:
 
 ```sql
 USE brutus;
-SOURCE /home/taila/brutus/backup/brutus_AIVEN.sql;
+SOURCE /home/taila/brutus/database/schema.sql;
 SHOW TABLES;
 SELECT COUNT(*) FROM itens;
 ```
 
-A carga contém 10 tabelas e 21 produtos. As fotos padronizadas e as ofertas de demonstração ficam nos arquivos do projeto, não no SQL. Não repetir essa carga em banco já populado.
-
-### Conectar o site ao Aiven
-
-Todas as páginas usam `database.php`. As credenciais ficam em `.env.local.php`, ignorado pelo Git. Em uma instalação nova, copie `.env.example.php` para `.env.local.php`.
-
-1. Baixe o certificado CA na página Overview do serviço Aiven e salve em `certs/aiven-ca.pem`.
-2. Em `.env.local.php`, preencha `aiven.password` e altere `connection` de `local` para `aiven`. Host, porta 16678, usuário `avnadmin` e banco `brutus` já estão preenchidos.
-3. Execute `php scripts/testar-conexao.php` na pasta do projeto. O comando valida PDO, MySQLi, TLS e a leitura dos produtos, sem alterar dados.
-4. Atualize a página do site. O arquivo de configuração é lido a cada requisição.
-
-Para voltar ao banco local, altere `connection` para `local`. A conexão Aiven exige um certificado CA legível e não faz fallback silencioso para o banco local.
-
-### Validações dos formulários
-
-CPF com verificação dos dígitos, telefone fixo/celular com DDD, CEP de oito dígitos e número de endereço entre 1 e 999999 são validados no navegador e no servidor. Nome até 100 caracteres, e-mail até 254, rua/complemento até 120, bairro/cidade até 100. Cadastro preserva dados após erros e recusa e-mail duplicado. As senhas novas usam `password_hash`; senhas antigas continuam aceitas pelo login. Produtos limitam nome a 50, descrição a 200 e preço a duas casas decimais entre 0,01 e 99999,99. Carrinho limita a 99 unidades por item.
-
-O banco local já recebeu a ampliação dos campos. Para o banco Aiven já importado, execute somente a atualização incremental, sem reimportar o catálogo:
+Para um banco **já importado**, use apenas a atualização incremental necessária:
 
 ```sql
-SOURCE /home/taila/brutus/backup/melhorias-campos.sql;
+SOURCE /home/taila/brutus/database/migrations/001-melhorias-campos.sql;
 ```
 
-Testes de validação: `php tests/validacao.php`.
+Não reimporte a carga inicial em banco populado. Os arquivos em `database/legacy/` são exportações anteriores e ficam separados do SQL atual.
 
-### Consulta de CEP
+Em `.env.local.php`, preencha `aiven.password`, baixe o CA e altere `connection` para `aiven`. O modelo já contém host, porta 16678, usuário `avnadmin` e banco `brutus`. Execute `php scripts/testar-conexao.php` para conferir PDO, MySQLi, TLS e a leitura do catálogo. Para voltar ao ambiente local, use `connection => local`.
 
-O script `cadastro/cep.js` é compartilhado por cadastro, endereços do perfil e checkout. Consulta automaticamente ao completar oito dígitos e também pelo botão Buscar CEP. Prioriza o endpoint documentado do BrasilCEP (`https://api.brasilcep.dev/v1/{cep}`); em falhas de conexão, timeout, resposta inválida ou HTTP, tenta a BrasilAPI (`https://brasilapi.com.br/api/cep/v1/{cep}`). Cada tentativa tem timeout de quatro segundos. O BrasilCEP estava sem resolução DNS na verificação; a BrasilAPI respondeu à consulta real.
+O script `scripts/atualizar-banco-local.php` adapta bancos antigos às colunas usadas pelas telas atuais e deve ser executado manualmente apenas no banco pretendido.
 
-Rua, bairro, cidade e UF (quando o formulário tiver o campo) são preenchidos. Alterações manuais são preservadas; número e complemento não são alterados. Respostas de CEPs anteriores são descartadas e resultados válidos são mantidos em cache na página. A indisponibilidade dos serviços permite preenchimento manual.
+## Manutenção
 
-Teste: `node --test tests/cep.test.cjs`.
+- Promoções: `config/promocoes.php`; revise os IDs e valores ao alterar o catálogo. `app/helpers/preco-produto.php` compartilha os preços entre catálogo e checkout.
+- Fotos: `config/fotos-catalogo.php` e `public/produtos/padronizados/`. Novos uploads têm prioridade. Os prompts estão em `docs/fotografia-catalogo.md`.
+- Interface: `public/assets/css/urban.css` e `tema.css`. As páginas escolhem a paleta com `data-flavor`; o botão lua/sol guarda a preferência em `brutus-theme` no navegador.
+- CEP: `public/assets/js/cep.js`, compartilhado por cadastro, endereços e checkout. Consulta BrasilCEP e usa BrasilAPI como alternativa; preserva alterações manuais e permite preenchimento manual quando indisponível.
+- Sacola: `public/assets/js/pedido.js` e `public/carrinho/itens.php`. Adiciona e remove sem redirecionar, mostra quantidade e limita a 99 unidades por produto.
+- Validação: `app/helpers/validacao.php` e `public/assets/js/formularios.js`. CPF, telefone, CEP, endereços e limites são verificados no servidor e navegador. Senhas novas usam `password_hash`; o login mantém compatibilidade com hashes antigos.
+- WhatsApp: os botões são apenas visuais e estão desativados, sem telefone ou link configurado.
 
-Referências: https://brasilcep.github.io/ e https://brasilapi.com.br/docs#tag/CEP.
+## Verificação
 
-### Adicionar ao pedido no cardápio
+Na raiz do projeto:
 
-O botão `+` dos cards atualiza a sacola por `POST /brutus/carrinho/itens.php`, sem navegar para o carrinho. O card mostra Adicionado e a quantidade, com botões para aumentar e diminuir. O cabeçalho exibe o total de unidades. O mesmo comportamento está na página inicial, cardápio, combos e promoções. A sacola é mantida na sessão, inclusive enquanto o visitante ainda não entrou na conta; o login continua necessário para acessar o carrinho e finalizar a compra. Quantidades permanecem limitadas a 99 por produto, verificadas no servidor.
+```sh
+php tests/estrutura.php
+php tests/validacao.php
+node --test tests/*.cjs
+```
 
-### Identidade urbana e contato
-
-O tema aprovado está em `assets/urban.css`, aplicado pela classe `brutus-urban` nas páginas. Usa papel creme, tomate, cheddar e verde de alface, com títulos grandes, adesivos e molduras. Cada página pode variar a cor via `data-flavor`.
-
-Os elementos de WhatsApp no rodapé e no atalho fixo são apenas visuais e ficam desativados. Nenhum número ou link de conversa está configurado.
-
-### Modo claro e noturno
-
-O botão de lua/sol ao lado da conta alterna o tema em todas as páginas. `assets/tema.js` recupera a preferência antes de renderizar e a salva na chave `brutus-theme` do localStorage; `assets/tema.css` fornece paletas noturnas por ingrediente e adapta textos, cards, formulários e checkout. O modo inicial é claro quando não há preferência salva. O botão funciona mesmo se o navegador bloquear o armazenamento, e as abas sincronizam mudanças da preferência.
-
-Testes: `node --test tests/tema.test.cjs`.
+Desenvolvido por Caroline, Paulo e Taila.

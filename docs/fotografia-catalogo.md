@@ -2,9 +2,9 @@
 
 Coleção de 21 imagens geradas com a ferramenta integrada imagegen. São imagens de demonstração com aparência fotográfica, não registros dos pratos de uma cozinha real.
 
-Arquivos finais: `produtos/padronizados/*.webp`, 960 × 720 px, qualidade WebP 86. Otimização de resolução e formato sem alterar cores ou recortar os produtos. Os originais gerados permanecem no diretório padrão da ferramenta.
+Arquivos finais: `public/produtos/padronizados/*.webp`, 960 × 720 px, qualidade WebP 86. Otimização de resolução e formato sem alterar cores ou recortar os produtos. Os originais gerados permanecem no diretório padrão da ferramenta.
 
-O mapeamento está em `produtos/fotos-catalogo.php`, consumido por `imagem-produto.php`. Arquivos novos enviados pelo painel prevalecem sobre os nomes legados dos backups. Nenhuma coluna de imagem do banco foi alterada.
+O mapeamento está em `config/fotos-catalogo.php`, consumido por `app/helpers/imagem-produto.php`. Arquivos novos enviados pelo painel prevalecem sobre os nomes legados dos backups. Nenhuma coluna de imagem do banco foi alterada.
 
 ## Prompts finais
 

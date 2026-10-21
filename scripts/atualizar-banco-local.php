@@ -1,7 +1,7 @@
 <?php
 // Compatibilidade entre o backup antigo e as telas da versão mais recente.
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
-require __DIR__ . '/../cardapio/conexao.php';
+require __DIR__ . '/../app/conexoes/pdo.php';
 $colunas = static function ($table) use ($conn) {
     return $conn->query("SHOW COLUMNS FROM `$table`")->fetchAll(PDO::FETCH_COLUMN);
 };

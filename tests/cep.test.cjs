@@ -2,7 +2,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const source = fs.readFileSync(__dirname + '/../cadastro/cep.js', 'utf8');
+const source = fs.readFileSync(__dirname + '/../public/assets/js/cep.js', 'utf8');
 class Field extends EventTarget {
   constructor() { super(); this.value = ''; this.dataset = {}; this.attributes = {}; this.children = []; }
   after(node) { this.children.push(node); }

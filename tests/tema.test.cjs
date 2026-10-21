@@ -2,7 +2,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const vm = require('node:vm');
 const fs = require('node:fs');
-const source = fs.readFileSync(__dirname + '/../assets/tema.js','utf8');
+const source = fs.readFileSync(__dirname + '/../public/assets/js/tema.js','utf8');
 function setup(saved, blocked=false) {
  const docListeners={}, winListeners={}, attributes={}, store={ 'brutus-theme':saved };
  const button={setAttribute(name,value){attributes[name]=value;}};
