@@ -58,6 +58,8 @@ php scripts/testar-conexao.php
 bash scripts/servir.sh
 ```
 
+O inicializador confere a conexão com o banco antes de iniciar o PHP. Em modo local, se o contêiner Docker existente `brutus-local-db` estiver parado, ele o inicia e aguarda a conexão; não cria nem reimporta o banco. Em modo Aiven, apenas verifica a conexão configurada.
+
 Acesse **http://localhost:8091/brutus/**. O roteador de desenvolvimento mantém esse prefixo e entrega somente arquivos de `public/`.
 
 Para Apache, configure `Alias /brutus` apontando para o caminho absoluto de `public/`, com acesso permitido a esse diretório. No Nginx, configure a localização `/brutus/` e o PHP-FPM para essa mesma pasta. A raiz do repositório não deve ser usada como raiz pública. A pasta `public/produtos/` precisa permitir gravação para os uploads do painel.
