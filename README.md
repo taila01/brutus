@@ -47,7 +47,7 @@ As URLs continuam usando o prefixo `/brutus/`. Os includes PHP usam `__DIR__`, p
 
 ## Rodar localmente
 
-Requisitos: PHP 8.2+ com `pdo_mysql`, `mysqli` e `mbstring`, MySQL/MariaDB e Node.js para os testes de JavaScript.
+Requisitos: PHP corrigido (8.2.35+, 8.3.36+, 8.4.27+ ou 8.5.12+) com `pdo_mysql`, `mysqli` e `mbstring`, MySQL/MariaDB e Node.js para os testes de JavaScript.
 
 1. Copie `.env.example.php` para `.env.local.php` e configure a conexão.
 2. Em um banco vazio chamado `brutus`, importe `database/schema.sql`. A carga inclui 10 tabelas e 21 produtos, sem usuários, senhas, endereços ou pedidos. Crie sua conta pelo cadastro.
@@ -55,12 +55,31 @@ Requisitos: PHP 8.2+ com `pdo_mysql`, `mysqli` e `mbstring`, MySQL/MariaDB e Nod
 
 ```sh
 php scripts/testar-conexao.php
-php -S 127.0.0.1:8091 -t public scripts/router.php
+bash scripts/servir.sh
 ```
 
 Acesse **http://localhost:8091/brutus/**. O roteador de desenvolvimento mantém esse prefixo e entrega somente arquivos de `public/`.
 
 Para Apache, configure `Alias /brutus` apontando para o caminho absoluto de `public/`, com acesso permitido a esse diretório. No Nginx, configure a localização `/brutus/` e o PHP-FPM para essa mesma pasta. A raiz do repositório não deve ser usada como raiz pública. A pasta `public/produtos/` precisa permitir gravação para os uploads do painel.
+
+## Atualização de segurança do PHP
+
+Avisos oficiais de 21 e 23/10/2026: https://www.php.net/archive/2026.php. As CVEs 2026-109618 e 2026-109619 exigem atualizar o interpretador; alterações no código não substituem essa correção. Na série 8.4, utilize 8.4.27 ou uma atualização posterior corrigida.
+
+Para a instalação PHP 8.4 deste computador Ubuntu:
+
+```sh
+sudo bash scripts/atualizar-php-ubuntu.sh
+php scripts/verificar-php.php
+```
+
+O script atualiza somente os pacotes PHP 8.4 já instalados e suas dependências, instala `config/php/security.ini` no `conf.d` do PHP e reinicia PHP-FPM/Apache se estiverem ativos. Essa instalação PHP pode ser compartilhada com outros projetos do computador. Não altera o banco ou as credenciais. A execução pede a senha de administrador diretamente no terminal.
+
+`bash scripts/servir.sh` verifica a versão e as extensões antes de subir a prévia e desativa `session.upload_progress.enabled` antes de processar requisições. Para escolher outro binário, use `BRUTUS_PHP_BIN=/caminho/php bash scripts/servir.sh`.
+
+Na hospedagem, solicite a atualização do PHP e aplique `session.upload_progress.enabled=0` no `php.ini`, `conf.d` ou configuração inicial do pool FPM; reinicie todos os workers. `ini_set()` no código e `.user.ini` no FPM não substituem essa configuração inicial. A verificação via CLI não comprova a versão do PHP usado pelo servidor web; confira também o ambiente da hospedagem. Pacotes com correções retroportadas precisam de confirmação do fornecedor quando mantêm uma versão anterior.
+
+O acompanhamento de progresso de uploads pela sessão não é usado pelo Brutus; desativá-lo mantém o envio normal das imagens. O aviso adicional CVE-2026-115560 envolve uma troca do serializador em tempo de execução que o projeto não faz.
 
 ## Banco e Aiven
 
